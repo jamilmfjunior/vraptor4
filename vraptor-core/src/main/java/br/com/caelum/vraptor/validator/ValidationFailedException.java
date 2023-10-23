@@ -1,6 +1,6 @@
 package br.com.caelum.vraptor.validator;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.VRaptorException;
 

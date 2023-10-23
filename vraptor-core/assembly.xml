@@ -28,12 +28,12 @@
 			<outputDirectory>lib/javaee</outputDirectory>
 			<scope>test</scope>
 			<includes>
-				<include>javax.inject:javax.inject</include>
-				<include>javax.annotation:javax.annotation-api</include>
-				<include>javax.interceptor:javax.interceptor-api</include>
-				<include>javax.enterprise:cdi-api</include>
-				<include>javax.ejb:javax.ejb-api</include>
-				<include>javax.servlet:jstl</include>
+				<include>jakarta.inject:jakarta.inject</include>
+				<include>jakarta.annotation:jakarta.annotation-api</include>
+				<include>jakarta.interceptor:jakarta.interceptor-api</include>
+				<include>jakarta.enterprise:cdi-api</include>
+				<include>jakarta.ejb:jakarta.ejb-api</include>
+				<include>jakarta.servlet:jstl</include>
 			</includes>
 		</dependencySet>
 		
@@ -48,9 +48,9 @@
 				<include>org.jboss.weld:weld-core-impl</include>
 				<include>org.jboss.weld.servlet:weld-servlet-core</include>
 				<include>org.jboss.classfilewriter:jboss-classfilewriter</include>
-				<include>org.jboss.spec.javax.el:jboss-el-api_3.0_spec</include>
-				<include>org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.2_spec</include>
-				<include>org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec</include>
+				<include>org.jboss.spec.jakarta.el:jboss-el-api_3.0_spec</include>
+				<include>org.jboss.spec.jakarta.interceptor:jboss-interceptors-api_1.2_spec</include>
+				<include>org.jboss.spec.jakarta.annotation:jboss-annotations-api_1.2_spec</include>
 			</includes>
 		</dependencySet>
 
@@ -70,7 +70,7 @@
 			<outputDirectory>lib/validation</outputDirectory>
 			<scope>test</scope>
 			<includes>
-				<include>javax.validation:validation-api</include>
+				<include>jakarta.validation:validation-api</include>
 				<include>org.hibernate:hibernate-validator</include>
 				<include>org.hibernate:hibernate-validator-cdi</include>
 				<include>org.jboss.logging:jboss-logging</include>

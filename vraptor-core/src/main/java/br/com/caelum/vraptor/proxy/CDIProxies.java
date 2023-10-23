@@ -15,17 +15,15 @@
  */
 package br.com.caelum.vraptor.proxy;
 
-import javax.enterprise.inject.Vetoed;
-
 import com.thoughtworks.xstream.InitializationException;
-import org.jboss.weld.bean.proxy.ProxyObject;
-import org.jboss.weld.interceptor.util.proxy.TargetInstanceProxy;
+
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Utility class to work with CDI proxies, allowing us to get objects without weld proxies. At this time this
  * class only works with JBoss Weld, but since Weld is the only one that implements CDI 1.1, this is not a big
  * trouble.
- * 
+ *
  * @author Otávio Scherer Garcia
  * @author Mario Amaral
  */
@@ -36,7 +34,9 @@ public final class CDIProxies {
 	}
 
 	public static boolean isCDIProxy(Class<?> type) {
-		return ProxyObject.class.isAssignableFrom(type);
+		System.out.println(type);
+		return true;
+		//return ProxyObject.class.isAssignableFrom(type);
 	}
 
 	public static <T> Class<?> extractRawTypeIfPossible(Class<T> type) {
@@ -45,10 +45,11 @@ public final class CDIProxies {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> T unproxifyIfPossible(T source) {
-		if (source instanceof TargetInstanceProxy) {
-			TargetInstanceProxy<T> target = (TargetInstanceProxy) source;
-			return target.getTargetInstance();
-		}
+		System.out.println(source);
+//		if (source instanceof TargetInstanceProxy) {
+//			TargetInstanceProxy<T> target = (TargetInstanceProxy) source;
+//			return target.weld_getTargetInstance();
+//		}
 		return source;
 	}
 }

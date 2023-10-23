@@ -17,7 +17,7 @@
 
 package br.com.caelum.vraptor.util.test;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.View;
 import br.com.caelum.vraptor.proxy.JavassistProxifier;

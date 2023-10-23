@@ -16,7 +16,7 @@
  */
 package br.com.caelum.vraptor.http;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A request capable of receiving extra parameters.

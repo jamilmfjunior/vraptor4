@@ -7,11 +7,11 @@
 
 	<scan>
 		<exclude name="br.com.caelum.vraptor.observer.upload.CommonsUploadMultipartObserver">
-			<if-class-not-available name="org.apache.commons.fileupload.FileItem"/>
+			<if-class-not-available name="org.apache.commons.fileupload2.core.FileItem"/>
 		</exclude>
 
 		<exclude name="br.com.caelum.vraptor.observer.upload.NullMultipartObserver">
-			<if-class-available name="org.apache.commons.fileupload.FileItem"/>
+			<if-class-available name="org.apache.commons.fileupload2.core.FileItem"/>
 		</exclude>
 
 		<exclude name="br.com.caelum.vraptor.serialization.xstream.*">

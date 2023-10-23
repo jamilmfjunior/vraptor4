@@ -1,6 +1,6 @@
 package br.com.caelum.vraptor.serialization.gson;
 
-import javax.enterprise.context.Dependent;
+import jakarta.enterprise.context.Dependent;
 
 import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.serialization.Deserializee;

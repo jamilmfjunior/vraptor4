@@ -17,10 +17,10 @@ package br.com.caelum.vraptor.observer;
 
 import java.lang.reflect.Method;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.events.MethodReady;
 import br.com.caelum.vraptor.interceptor.IncludeParameters;

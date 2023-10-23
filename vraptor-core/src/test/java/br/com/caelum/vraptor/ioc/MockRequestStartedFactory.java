@@ -15,10 +15,10 @@
  */
 package br.com.caelum.vraptor.ioc;
 
-import javax.enterprise.inject.Specializes;
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.enterprise.inject.Specializes;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.events.RequestStarted;
 import br.com.caelum.vraptor.ioc.RequestStartedFactory;

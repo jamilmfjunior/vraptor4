@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.el.ELProcessor;
+import jakarta.el.ELProcessor;
 
 import org.junit.Before;
 import org.junit.Rule;

@@ -20,7 +20,7 @@ package br.com.caelum.vraptor.http.route;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.controller.HttpMethod;
 

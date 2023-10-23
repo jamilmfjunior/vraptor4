@@ -19,9 +19,6 @@ package br.com.caelum.vraptor.view;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.View;
 import br.com.caelum.vraptor.core.ReflectionProvider;
@@ -33,12 +30,14 @@ import br.com.caelum.vraptor.serialization.Serializer;
 import br.com.caelum.vraptor.serialization.SerializerBuilder;
 import br.com.caelum.vraptor.validator.Message;
 import br.com.caelum.vraptor.validator.ValidationException;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 /**
  * Default implementation for ValidationViewsFactory
  *
  * If you want to extend this behavior use:
- * 
+ *
  * \@Specializes
  * public class MyValidatorViewsFactory extends DefaultValidationViewsFactory {
  * 		//delegate constructor
@@ -58,9 +57,10 @@ public class DefaultValidationViewsFactory implements ValidationViewsFactory {
 	private final Proxifier proxifier;
 	private final ReflectionProvider reflectionProvider;
 
-	/** 
+	/**
 	 * @deprecated CDI eyes only
 	 */
+	@Deprecated
 	protected DefaultValidationViewsFactory() {
 		this(null, null, null);
 	}
@@ -88,7 +88,7 @@ public class DefaultValidationViewsFactory implements ValidationViewsFactory {
 			@Override
 			public Object intercept(T proxy, Method method, Object[] args, SuperMethod superMethod) {
 				final Object instance = reflectionProvider.invoke(viewInstance, method, args);
-				
+
 				Class type = method.getReturnType();
 				if (type == void.class) {
 					throw new ValidationException(errors);

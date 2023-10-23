@@ -21,7 +21,7 @@ import static com.google.common.base.Strings.emptyToNull;
 
 import java.util.ResourceBundle;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.Message;

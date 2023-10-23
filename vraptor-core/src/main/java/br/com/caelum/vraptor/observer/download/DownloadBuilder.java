@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * A Builder to create a proper instance for {@link Download} class.

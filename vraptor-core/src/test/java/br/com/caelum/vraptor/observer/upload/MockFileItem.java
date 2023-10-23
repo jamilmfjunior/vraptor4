@@ -16,15 +16,16 @@
 package br.com.caelum.vraptor.observer.upload;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemHeaders;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileItemHeaders;
+import org.apache.commons.fileupload2.core.FileItemHeadersProvider;
 
 public class MockFileItem implements FileItem {
 
@@ -57,7 +58,8 @@ public class MockFileItem implements FileItem {
 	}
 
 	@Override
-	public void delete() {
+	public FileItem delete() {
+		return null;
 
 	}
 
@@ -102,9 +104,9 @@ public class MockFileItem implements FileItem {
 	}
 
 	@Override
-	public String getString(String charsetName) throws UnsupportedEncodingException {
+	public String getString(Charset charset) throws UnsupportedEncodingException {
 		try {
-			return new String(content, Charset.forName(charsetName));
+			return new String(content, charset);
 		}catch (Exception e) {
 			throw new UnsupportedEncodingException();
 		}
@@ -121,19 +123,21 @@ public class MockFileItem implements FileItem {
 	}
 
 	@Override
-	public void setFieldName(String arg0) {
+	public FileItem setFieldName(String arg0) {
+		return null;
 
 	}
 
 	@Override
-	public void setFormField(boolean arg0) {
+	public FileItem setFormField(boolean arg0) {
+		return null;
 
 	}
 
 	@Override
-	public void write(File arg0)
-		throws Exception {
-
+	public FileItem write(Path file) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -142,7 +146,8 @@ public class MockFileItem implements FileItem {
 	}
 
 	@Override
-	public void setHeaders(FileItemHeaders arg0) {
+	public FileItemHeadersProvider setHeaders(FileItemHeaders arg0) {
+		return null;
 	}
 
 }

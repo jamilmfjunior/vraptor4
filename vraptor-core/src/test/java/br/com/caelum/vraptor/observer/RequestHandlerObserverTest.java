@@ -17,7 +17,7 @@
 package br.com.caelum.vraptor.observer;
 
 import static br.com.caelum.vraptor.controller.HttpMethod.POST;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -25,8 +25,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.EnumSet;
 
-import javax.enterprise.event.Event;
-import javax.servlet.FilterChain;
+import jakarta.enterprise.event.Event;
+import jakarta.servlet.FilterChain;
 
 import org.junit.Before;
 import org.junit.Test;

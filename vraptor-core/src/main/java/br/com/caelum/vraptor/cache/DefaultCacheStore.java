@@ -20,7 +20,7 @@ import static com.google.common.base.Throwables.propagateIfPossible;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import com.google.common.base.Supplier;
 

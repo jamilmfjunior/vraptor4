@@ -22,12 +22,12 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -36,11 +36,7 @@ import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.util.Arrays;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Rule;
@@ -53,12 +49,14 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.core.MethodInfo;
 import br.com.caelum.vraptor.events.MethodExecuted;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class DownloadObserverTest {
 
 	@Rule
 	public TemporaryFolder tmpdir = new TemporaryFolder();
-	
+
 	private DownloadObserver downloadObserver;
 
 	@Mock private MethodInfo methodInfo;
@@ -118,7 +116,7 @@ public class DownloadObserverTest {
 		when(controllerMethod.getMethod()).thenReturn(getMethod("download"));
 		when(result.used()).thenReturn(true);
 		downloadObserver.download(new MethodExecuted(controllerMethod, methodInfo), result);
-		verifyZeroInteractions(response);
+		verifyNoInteractions(response);
 	}
 
 	@Test
@@ -126,7 +124,7 @@ public class DownloadObserverTest {
 		when(controllerMethod.getMethod()).thenReturn(getMethod("download"));
 		when(methodInfo.getResult()).thenReturn(null);
 		downloadObserver.download(new MethodExecuted(controllerMethod, methodInfo), result);
-		verifyZeroInteractions(response);
+		verifyNoInteractions(response);
 	}
 
 	@Test
@@ -157,7 +155,7 @@ public class DownloadObserverTest {
 		assertThat(downloadObserver.resolveDownload(new byte[]{}), instanceOf(ByteArrayDownload.class));
 	}
 
-	private Matcher<byte[]> arrayStartingWith(final byte[] array) {
+	private TypeSafeMatcher<byte[]> arrayStartingWith(final byte[] array) {
 		return new TypeSafeMatcher<byte[]>() {
 			@Override
 			protected void describeMismatchSafely(byte[] item, Description mismatchDescription) {

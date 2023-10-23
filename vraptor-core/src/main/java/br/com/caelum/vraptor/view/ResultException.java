@@ -16,7 +16,7 @@
  */
 package br.com.caelum.vraptor.view;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.VRaptorException;
 

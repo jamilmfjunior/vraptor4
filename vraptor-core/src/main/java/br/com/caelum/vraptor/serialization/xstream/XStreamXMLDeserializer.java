@@ -18,8 +18,8 @@ package br.com.caelum.vraptor.serialization.xstream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.http.Parameter;

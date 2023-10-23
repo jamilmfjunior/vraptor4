@@ -41,7 +41,7 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import javax.enterprise.event.Event;
+import jakarta.enterprise.event.Event;
 
 import java.lang.reflect.Method;
 import java.util.Collections;

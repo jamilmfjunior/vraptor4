@@ -17,7 +17,7 @@ package br.com.caelum.vraptor.events;
 
 import java.lang.reflect.Type;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.core.MethodInfo;

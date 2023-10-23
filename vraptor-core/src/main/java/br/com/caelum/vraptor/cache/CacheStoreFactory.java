@@ -20,10 +20,10 @@ import static com.google.common.base.Throwables.propagateIfPossible;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Default;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.InjectionPoint;
 
 import com.google.common.base.Supplier;
 import com.google.common.cache.Cache;

@@ -21,8 +21,8 @@ import static java.util.Arrays.asList;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.Accepts;
 import br.com.caelum.vraptor.AfterCall;

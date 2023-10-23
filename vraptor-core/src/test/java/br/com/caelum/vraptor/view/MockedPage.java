@@ -18,7 +18,7 @@ package br.com.caelum.vraptor.view;
 
 import java.lang.reflect.Method;
 
-import javax.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.Alternative;
 
 import br.com.caelum.vraptor.proxy.JavassistProxifier;
 import br.com.caelum.vraptor.proxy.MethodInvocation;

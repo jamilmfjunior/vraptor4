@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Vetoed;
-import javax.enterprise.util.TypeLiteral;
+import jakarta.enterprise.inject.Instance;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.enterprise.util.TypeLiteral;
 
 /**
  * Fake implementation for {@link Instance} to test injection with list of elements.
@@ -81,5 +81,17 @@ public class MockInstanceImpl<T> implements Instance<T> {
 	@Override
 	public void destroy(T instance) {
 
+	}
+
+	@Override
+	public Handle<T> getHandle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<? extends Handle<T>> handles() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

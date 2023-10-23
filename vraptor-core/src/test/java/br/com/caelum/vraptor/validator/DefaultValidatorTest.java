@@ -25,25 +25,21 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.validation.MessageInterpolator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.NotNull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Result;
@@ -55,6 +51,9 @@ import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.view.DefaultValidationViewsFactory;
 import br.com.caelum.vraptor.view.LogicResult;
 import br.com.caelum.vraptor.view.PageResult;
+import jakarta.validation.MessageInterpolator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.NotNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DefaultValidatorTest {
@@ -72,14 +71,14 @@ public class DefaultValidatorTest {
 	public void setup() {
 		ResourceBundle bundle = new SafeResourceBundle(ResourceBundle.getBundle("messages"));
 
-		ValidatorFactory validatorFactory = javax.validation.Validation.buildDefaultValidatorFactory();
-		javax.validation.Validator bvalidator = validatorFactory.getValidator();
+		ValidatorFactory validatorFactory = jakarta.validation.Validation.buildDefaultValidatorFactory();
+		jakarta.validation.Validator bvalidator = validatorFactory.getValidator();
 		MessageInterpolator interpolator = validatorFactory.getMessageInterpolator();
 
 		Proxifier proxifier = new JavassistProxifier();
 		Messages messages = new Messages();
 
-		validator = new DefaultValidator(result, new DefaultValidationViewsFactory(result, proxifier, new DefaultReflectionProvider()), 
+		validator = new DefaultValidator(result, new DefaultValidationViewsFactory(result, proxifier, new DefaultReflectionProvider()),
 				outjector, proxifier, bundle, bvalidator, interpolator, Locale.ENGLISH, messages);
 		when(result.use(LogicResult.class)).thenReturn(logicResult);
 		when(result.use(PageResult.class)).thenReturn(pageResult);
@@ -153,7 +152,7 @@ public class DefaultValidatorTest {
 		assertThat(message0.getMessage(), is("The simple message"));
 		assertThat(message1.getMessage(), is("The simple message"));
 	}
-	
+
 	@Test
 	public void shouldntThrowExceptionWithEmptyMessageParameter() {
 		String weirdMessage = "{weird message with braces}";
@@ -170,7 +169,7 @@ public class DefaultValidatorTest {
 		validator.check(c.name != null, new SimpleMessage("client.name", "not null"));
 		assertThat(validator.getErrors(), hasSize(0));
 	}
-	
+
 	@Test
 	public void shouldAddMessageIfCheckingFails() {
 		Client c = new Client();
@@ -179,7 +178,7 @@ public class DefaultValidatorTest {
 		assertThat(validator.getErrors(), hasSize(1));
 		assertThat(validator.getErrors().get(0).getMessage(), containsString("not null"));
 	}
-	
+
 	@Test
 	public void doNothingIfEnsuringSuccess() {
 		Client c = new Client();
@@ -188,7 +187,7 @@ public class DefaultValidatorTest {
 		validator.ensure(c.name != null, new SimpleMessage("client.name", "not null"));
 		assertThat(validator.getErrors(), hasSize(0));
 	}
-	
+
 	@Test
 	public void shouldAddMessageIfEnsuringFails() {
 		Client c = new Client();
@@ -197,7 +196,7 @@ public class DefaultValidatorTest {
 		assertThat(validator.getErrors(), hasSize(1));
 		assertThat(validator.getErrors().get(0).getMessage(), containsString("not null"));
 	}
-	
+
 	@Test
 	public void doNothingIfFalse() {
 		Client c = new Client();
@@ -206,7 +205,7 @@ public class DefaultValidatorTest {
 		validator.addIf(c.name == null, new SimpleMessage("client.name", "not null"));
 		assertThat(validator.getErrors(), hasSize(0));
 	}
-	
+
 	@Test
 	public void shouldAddMessageIfTrue() {
 		Client c = new Client();

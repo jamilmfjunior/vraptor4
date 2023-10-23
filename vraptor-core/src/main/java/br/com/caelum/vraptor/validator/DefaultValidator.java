@@ -25,10 +25,10 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.MessageInterpolator;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.MessageInterpolator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public class DefaultValidator extends AbstractValidator {
 	private final Proxifier proxifier;
 	private final ResourceBundle bundle;
 
-	private final javax.validation.Validator bvalidator;
+	private final jakarta.validation.Validator bvalidator;
 	private final MessageInterpolator interpolator;
 	private final Locale locale;
 	private final Messages messages;
@@ -70,7 +70,7 @@ public class DefaultValidator extends AbstractValidator {
 
 	@Inject
 	public DefaultValidator(Result result, ValidationViewsFactory factory, Outjector outjector, Proxifier proxifier, 
-			ResourceBundle bundle, javax.validation.Validator bvalidator, MessageInterpolator interpolator, Locale locale,
+			ResourceBundle bundle, jakarta.validation.Validator bvalidator, MessageInterpolator interpolator, Locale locale,
 			Messages messages) {
 		this.result = result;
 		this.viewsFactory = factory;

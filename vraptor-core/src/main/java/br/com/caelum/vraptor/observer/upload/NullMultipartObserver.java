@@ -19,9 +19,9 @@ package br.com.caelum.vraptor.observer.upload;
 import static com.google.common.base.Strings.nullToEmpty;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 

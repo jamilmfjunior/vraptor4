@@ -18,10 +18,10 @@ package br.com.caelum.vraptor.observer;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -76,7 +76,7 @@ public class DeserializingObserverTest {
 	@Test
 	public void shouldOnlyAcceptMethodsWithConsumesAnnotation() throws Exception {
 		observer.deserializes(new InterceptorsReady(doesntConsume), request, methodInfo, status);
-		verifyZeroInteractions(request);
+		verifyNoInteractions(request);
 	}
 
 	@Test

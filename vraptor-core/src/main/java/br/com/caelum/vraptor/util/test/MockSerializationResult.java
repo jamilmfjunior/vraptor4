@@ -20,7 +20,7 @@ package br.com.caelum.vraptor.util.test;
 
 import java.util.ArrayList;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;

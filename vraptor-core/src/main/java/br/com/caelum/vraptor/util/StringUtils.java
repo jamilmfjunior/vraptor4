@@ -22,7 +22,7 @@ import com.thoughtworks.xstream.InitializationException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Utility methods to handle strings

@@ -17,7 +17,7 @@ package br.com.caelum.vraptor.environment;
 
 import java.util.Objects;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * An class to represent usual {@link Environment} types 

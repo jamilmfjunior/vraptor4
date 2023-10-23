@@ -17,12 +17,12 @@ package br.com.caelum.vraptor.ioc.cdi;
 
 import static org.mockito.Mockito.mock;
 
-import javax.annotation.Priority;
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.Specializes;
-import javax.interceptor.Interceptor;
-import javax.servlet.ServletContext;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.Specializes;
+import jakarta.interceptor.Interceptor;
+import jakarta.servlet.ServletContext;
 
 @Alternative
 @Priority(Interceptor.Priority.LIBRARY_BEFORE)

@@ -26,9 +26,9 @@ import static org.mockito.Mockito.verify;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
-import javax.validation.MessageInterpolator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.Min;
+import jakarta.validation.MessageInterpolator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.Email;
 import org.junit.Before;
@@ -69,7 +69,7 @@ public class MethodValidatorTest {
 	public void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		Locale.setDefault(Locale.ENGLISH);
-		validatorFactory = javax.validation.Validation.buildDefaultValidatorFactory();
+		validatorFactory = jakarta.validation.Validation.buildDefaultValidatorFactory();
 		interpolator = new MessageInterpolatorFactory(validatorFactory).getInstance();
 		validator = new MockValidator();
 		withConstraint = instanceFor(MyController.class, getMethod("withConstraint",String.class));

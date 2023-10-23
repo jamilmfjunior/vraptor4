@@ -19,7 +19,7 @@ import static br.com.caelum.vraptor.serialization.xstream.XStreamBuilderImpl.cle
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,13 +29,14 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonSerializer;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.View;
@@ -60,9 +61,7 @@ import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.Message;
 import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.SingletonResourceBundle;
-
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonSerializer;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class DefaultStatusTest {
 
@@ -136,7 +135,7 @@ public class DefaultStatusTest {
 
 		verify(response).setStatus(501);
 	}
-	
+
 	@Test
 	public void shouldSetInternalServerErrorStatus() throws Exception {
 		status.internalServerError();
@@ -178,7 +177,7 @@ public class DefaultStatusTest {
 	public void shouldSetMovedPermanentlyStatusOfLogic() throws Exception {
 		when(config.getApplicationPath()).thenReturn("http://myapp.com");
 		Method method = Resource.class.getDeclaredMethod("method");
-		when(router.urlFor(eq(Resource.class), eq(method), Mockito.anyVararg())).thenReturn("/resource/method");
+		when(router.urlFor(eq(Resource.class), eq(method), Mockito.any(Object[].class))).thenReturn("/resource/method");
 
 		status.movedPermanentlyTo(Resource.class).method();
 
@@ -218,7 +217,7 @@ public class DefaultStatusTest {
 		List<JsonDeserializer<?>> gsonDeserializers = new ArrayList<>();
 		gsonSerializers.add(new MessageGsonConverter());
 
-		GsonSerializerBuilder gsonBuilder = new GsonBuilderWrapper(new MockInstanceImpl<>(gsonSerializers), new MockInstanceImpl<>(gsonDeserializers), 
+		GsonSerializerBuilder gsonBuilder = new GsonBuilderWrapper(new MockInstanceImpl<>(gsonSerializers), new MockInstanceImpl<>(gsonDeserializers),
 				new Serializee(new DefaultReflectionProvider()), new DefaultReflectionProvider());
 		MockSerializationResult result = new MockSerializationResult(null, null, gsonBuilder, new DefaultReflectionProvider()) {
 			@Override

@@ -27,10 +27,10 @@ import br.com.caelum.vraptor.events.MethodReady;
 import br.com.caelum.vraptor.validator.Messages;
 import org.slf4j.Logger;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 

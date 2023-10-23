@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
-import javax.enterprise.util.AnnotationLiteral;
+import jakarta.enterprise.util.AnnotationLiteral;
 
 import net.vidageek.mirror.dsl.Mirror;
 

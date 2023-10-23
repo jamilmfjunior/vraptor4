@@ -17,11 +17,6 @@ package br.com.caelum.vraptor.serialization.gson;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
-
 import br.com.caelum.vraptor.core.ReflectionProvider;
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;
@@ -30,6 +25,11 @@ import br.com.caelum.vraptor.serialization.NoRootSerialization;
 import br.com.caelum.vraptor.serialization.Serializer;
 import br.com.caelum.vraptor.serialization.SerializerBuilder;
 import br.com.caelum.vraptor.view.ResultException;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletResponse;
+import misc.AddOpens;
 
 /**
  * Gson implementation for JSONSerialization
@@ -45,10 +45,12 @@ public class GsonJSONSerialization implements JSONSerialization {
 	private final GsonSerializerBuilder builder;
 	private Environment environment;
 	private ReflectionProvider reflectionProvider;
+	boolean success = AddOpens.open("java.base", "java.util", "java.net");
 
-	/** 
+	/**
 	 * @deprecated CDI eyes only
 	 */
+	@Deprecated
 	protected GsonJSONSerialization() {
 		this(null, null, null, null, null);
 	}
@@ -118,7 +120,7 @@ public class GsonJSONSerialization implements JSONSerialization {
 	@Override
 	public JSONSerialization serializeNulls() {
 		builder.serializeNulls();
-		return this;		
+		return this;
 	}
 
 }

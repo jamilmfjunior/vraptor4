@@ -19,7 +19,7 @@ package br.com.caelum.vraptor.core;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Wraps the input parameters for {@link ExceptionRecorder}.

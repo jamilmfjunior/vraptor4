@@ -19,7 +19,7 @@ package br.com.caelum.vraptor.observer.download;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Generic downloader.

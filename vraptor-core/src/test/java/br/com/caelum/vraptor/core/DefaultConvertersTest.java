@@ -23,8 +23,8 @@ import static org.hamcrest.Matchers.typeCompatibleWith;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import javax.annotation.Priority;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.interceptor.Interceptor;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -154,7 +154,7 @@ public class DefaultConvertersTest {
 	}
 
 	@Convert(MyData.class)
-	@Priority(javax.interceptor.Interceptor.Priority.APPLICATION)
+	@Priority(jakarta.interceptor.Interceptor.Priority.APPLICATION)
 	private class MySecondConverter implements Converter<MyData> {
 		@Override
 		public MyData convert(String value, Class<? extends MyData> type) {
@@ -163,7 +163,7 @@ public class DefaultConvertersTest {
 	}
 
 	@Convert(MyData.class)
-	@Priority(javax.interceptor.Interceptor.Priority.APPLICATION)
+	@Priority(jakarta.interceptor.Interceptor.Priority.APPLICATION)
 	private class MyThirdConverter implements Converter<MyData> {
 		@Override
 		public MyData convert(String value, Class<? extends MyData> type) {
@@ -172,7 +172,7 @@ public class DefaultConvertersTest {
 	}
 
 	@Convert(MySubData.class)
-	@Priority(javax.interceptor.Interceptor.Priority.APPLICATION)
+	@Priority(jakarta.interceptor.Interceptor.Priority.APPLICATION)
 	private class MySubConverter implements Converter<MySubData> {
 		@Override
 		public MySubData convert(String value, Class<? extends MySubData> type) {

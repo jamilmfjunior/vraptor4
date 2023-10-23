@@ -15,14 +15,14 @@
  */
 package br.com.caelum.vraptor.ioc.cdi;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
-import javax.interceptor.Interceptor;
-import javax.servlet.ServletContext;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.Produces;
+import jakarta.interceptor.Interceptor;
+import jakarta.servlet.ServletContext;
 
 @ApplicationScoped
 @Alternative

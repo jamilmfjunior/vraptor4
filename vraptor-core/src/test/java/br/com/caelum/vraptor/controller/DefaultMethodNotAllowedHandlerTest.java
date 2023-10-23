@@ -15,7 +15,7 @@
  */
 package br.com.caelum.vraptor.controller;
 
-import static org.mockito.Matchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -25,8 +25,6 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.EnumSet;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,6 +33,7 @@ import org.junit.rules.ExpectedException;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.http.MutableRequest;
 import br.com.caelum.vraptor.http.MutableResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class DefaultMethodNotAllowedHandlerTest {
 
@@ -66,7 +65,7 @@ public class DefaultMethodNotAllowedHandlerTest {
 
 		verify(response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	}
-	
+
 	@Test
 	public void shouldNotSendMethodNotAllowedIfTheRequestMethodIsOptions() throws Exception {
 		when(request.getMethod()).thenReturn("OPTIONS");
@@ -75,7 +74,7 @@ public class DefaultMethodNotAllowedHandlerTest {
 
 		verify(response, never()).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	}
-	
+
 	@Test
 	public void shouldThrowInterceptionExceptionIfAnIOExceptionOccurs() throws Exception {
 		exception.expect(InterceptionException.class);

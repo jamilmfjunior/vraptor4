@@ -2,9 +2,9 @@ package br.com.caelum.vraptor.validator;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.Result;
 

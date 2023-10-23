@@ -18,12 +18,7 @@ package br.com.caelum.vraptor.ioc.cdi;
 import java.lang.annotation.Annotation;
 import java.util.Map;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Inject;
+import com.google.common.collect.ImmutableMap;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Convert;
@@ -36,8 +31,12 @@ import br.com.caelum.vraptor.core.InterceptorStackHandlersCache;
 import br.com.caelum.vraptor.core.InterceptsQualifier;
 import br.com.caelum.vraptor.events.VRaptorInitialized;
 import br.com.caelum.vraptor.serialization.Deserializes;
-
-import com.google.common.collect.ImmutableMap;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.inject.Inject;
 
 @Dependent
 public class StereotypesRegistry {
@@ -51,7 +50,7 @@ public class StereotypesRegistry {
 		for (Bean<?> bean : beanManager.getBeans(Object.class)) {
 			Annotation qualifier = tryToFindAStereotypeQualifier(bean);
 			if (qualifier != null) {
-				beanManager.fireEvent(new DefaultBeanClass(bean.getBeanClass()), qualifier);
+				beanManager.getEvent().select(qualifier).fire(new DefaultBeanClass(bean.getBeanClass()));
 			}
 		}
 		interceptorsCache.init();

@@ -15,7 +15,7 @@
  */
 package br.com.caelum.vraptor.serialization;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Doesn't serialize anything

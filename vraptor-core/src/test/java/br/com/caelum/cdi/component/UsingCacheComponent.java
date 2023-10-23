@@ -15,7 +15,7 @@
  */
 package br.com.caelum.cdi.component;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.cache.CacheStore;
 import br.com.caelum.vraptor.cache.LRU;

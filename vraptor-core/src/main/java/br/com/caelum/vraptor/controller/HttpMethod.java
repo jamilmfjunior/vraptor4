@@ -19,7 +19,7 @@ package br.com.caelum.vraptor.controller;
 
 import java.lang.annotation.Annotation;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;

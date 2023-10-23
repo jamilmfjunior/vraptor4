@@ -20,14 +20,12 @@ package br.com.caelum.vraptor.core;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.weld.bean.proxy.ProxyObject;
 import org.junit.Before;
@@ -46,6 +44,7 @@ import br.com.caelum.vraptor.view.LogicResult;
 import br.com.caelum.vraptor.view.PageResult;
 import br.com.caelum.vraptor.view.Results;
 import br.com.caelum.vraptor.view.Status;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class DefaultResultTest {
 
@@ -56,7 +55,7 @@ public class DefaultResultTest {
 
 	private Result result;
 	private WeldProxifier weldProxifier;
-	
+
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
@@ -67,7 +66,7 @@ public class DefaultResultTest {
 	public static class MyView implements View {
 
 	}
-	
+
 	@Test
 	public void shouldUseContainerForNewView() {
 		final MyView expectedView = new MyView();
@@ -130,7 +129,7 @@ public class DefaultResultTest {
 
 		verify(logicResult).forwardTo(RandomController.class);
 	}
-	
+
 	@Test
 	public void shouldDelegateToLogicResultOnRedirectToLogic() throws Exception {
 
@@ -140,7 +139,7 @@ public class DefaultResultTest {
 
 		verify(logicResult).redirectTo(RandomController.class);
 	}
-	
+
 	@Test
 	public void shouldDelegateToLogicResultOnRedirectToLogicWithInstance() throws Exception {
 
@@ -160,7 +159,7 @@ public class DefaultResultTest {
 
 		verify(logicResult).forwardTo(RandomController.class);
 	}
-	
+
 	@Test
 	public void shouldDelegateToPageResultOnPageOfWithInstance() throws Exception {
 
@@ -188,7 +187,7 @@ public class DefaultResultTest {
 		result.forwardTo(randomProxy);
 		verify(logicResult).forwardTo(RandomController.class);
 	}
-	
+
 	@Test
 	public void shouldDelegateToPageResultOnPageOfWithProxifiedTypeInstance() throws Exception {
 		PageResult logicResult = mockResult(PageResult.class);
@@ -197,7 +196,7 @@ public class DefaultResultTest {
 		result.of(randomProxy);
 		verify(logicResult).of(RandomController.class);
 	}
-	
+
 	@Test
 	public void shouldDelegateToStatusOnNotFound() throws Exception {
 
@@ -237,7 +236,7 @@ public class DefaultResultTest {
 
 		verify(status).movedPermanentlyTo(RandomController.class);
 	}
-	
+
 	@Test
 	public void shouldCallAssertAbsenceOfErrorsMethodFromMessages() throws Exception {
 		result.use(Results.json());
@@ -246,7 +245,7 @@ public class DefaultResultTest {
 
 
 	class Account {
-		
+
 	}
 
 	@Test
@@ -254,16 +253,16 @@ public class DefaultResultTest {
 
 		Account account = new Account();
 		when(extractor.nameFor(Account.class)).thenReturn("account");
-		
+
 		result.include(account);
 
 		verify(request).setAttribute("account", account);
 
 	}
-	
+
 	@Test
 	public void shouldNotIncludeTheAttributeWhenTheValueIsNull() throws Exception {
 		result.include(null);
-		verify(request, never()).setAttribute(anyString(), anyObject());
+		verify(request, never()).setAttribute(anyString(), any());
 	}
 }

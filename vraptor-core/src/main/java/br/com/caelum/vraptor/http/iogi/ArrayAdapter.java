@@ -19,7 +19,7 @@ package br.com.caelum.vraptor.http.iogi;
 
 import java.util.List;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.iogi.Instantiator;
 import br.com.caelum.iogi.collections.ArrayInstantiator;

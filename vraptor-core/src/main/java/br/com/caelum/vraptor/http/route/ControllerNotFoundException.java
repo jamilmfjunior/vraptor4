@@ -17,7 +17,7 @@
 
 package br.com.caelum.vraptor.http.route;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Exception thrown when no routes matching URI are found.

@@ -18,7 +18,7 @@ package br.com.caelum.vraptor.interceptor;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import org.junit.Before;
 import org.junit.Rule;

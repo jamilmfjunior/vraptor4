@@ -17,7 +17,7 @@ package br.com.caelum.vraptor.util;
 
 import java.util.ListResourceBundle;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Representing an empty resource bundle.

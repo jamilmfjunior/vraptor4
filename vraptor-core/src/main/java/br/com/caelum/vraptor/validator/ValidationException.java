@@ -19,7 +19,7 @@ package br.com.caelum.vraptor.validator;
 
 import java.util.List;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 import br.com.caelum.vraptor.VRaptorException;
 

@@ -15,7 +15,7 @@
  */
 package br.com.caelum.vraptor.controller;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import static br.com.caelum.vraptor.proxy.CDIProxies.extractRawTypeIfPossible;
 

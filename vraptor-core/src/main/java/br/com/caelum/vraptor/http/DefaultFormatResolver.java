@@ -15,9 +15,9 @@
  */
 package br.com.caelum.vraptor.http;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 
 import br.com.caelum.vraptor.view.AcceptHeaderToFormat;
 

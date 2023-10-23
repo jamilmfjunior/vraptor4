@@ -18,15 +18,15 @@
 package br.com.caelum.vraptor.http;
 
 import static java.util.Collections.enumeration;
-import static javax.servlet.RequestDispatcher.INCLUDE_REQUEST_URI;
+import static jakarta.servlet.RequestDispatcher.INCLUDE_REQUEST_URI;
 
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.inject.Vetoed;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

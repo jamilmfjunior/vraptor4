@@ -19,7 +19,7 @@ package br.com.caelum.vraptor.view;
 import java.io.InputStream;
 import java.io.Reader;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.View;
 

@@ -17,7 +17,7 @@
 
 package br.com.caelum.vraptor.http;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * A response that can add listeners to Redirects

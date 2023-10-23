@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.LinkedList;
 
-import javax.enterprise.event.Event;
+import jakarta.enterprise.event.Event;
 
 import org.junit.Before;
 import org.junit.Test;

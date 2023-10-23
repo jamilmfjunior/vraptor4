@@ -15,11 +15,11 @@
  */
 package br.com.caelum.vraptor.validator.beanvalidation;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.validation.MessageInterpolator;
-import javax.validation.ValidatorFactory;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.validation.MessageInterpolator;
+import jakarta.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

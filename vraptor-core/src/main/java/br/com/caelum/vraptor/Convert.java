@@ -20,8 +20,8 @@ package br.com.caelum.vraptor;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Stereotype;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Stereotype;
 
 /**
  * Registers a class as a converter.

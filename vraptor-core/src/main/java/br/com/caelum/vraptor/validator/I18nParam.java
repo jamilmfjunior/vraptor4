@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Represents a lazy i18n parameter

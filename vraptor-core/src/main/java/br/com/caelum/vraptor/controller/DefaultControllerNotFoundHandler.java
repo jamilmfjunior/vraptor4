@@ -19,11 +19,11 @@ package br.com.caelum.vraptor.controller;
 
 import java.io.IOException;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.events.ControllerNotFound;

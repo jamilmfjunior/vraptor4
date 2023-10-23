@@ -22,19 +22,18 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.jstl.core.Config;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.caelum.vraptor.util.EmptyBundle;
 import br.com.caelum.vraptor.util.SafeResourceBundle;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.jsp.jstl.core.Config;
+import jakarta.servlet.jsp.jstl.fmt.LocalizationContext;
 
 /**
  * The default implementation of bundle provider uses JSTL's api to access user information on the bundle to be used.
@@ -54,6 +53,7 @@ public class JstlLocalization {
 	/**
 	 * @deprecated CDI eyes only
 	 */
+	@Deprecated
 	protected JstlLocalization() {
 		this(null);
 	}

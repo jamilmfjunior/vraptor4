@@ -20,10 +20,10 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.math.BigInteger;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Alternative;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.interceptor.Interceptor;
 
 import br.com.caelum.vraptor.Convert;
 

@@ -18,8 +18,8 @@ package br.com.caelum.vraptor.interceptor;
 
 import static com.google.common.base.Throwables.getRootCause;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -18,18 +18,18 @@ package br.com.caelum.vraptor.http;
 
 import java.lang.reflect.AccessibleObject;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.interceptor.Interceptor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.thoughtworks.paranamer.AnnotationParanamer;
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.CachingParanamer;
+import com.thoughtworks.paranamer.JakartaAnnotationParanamer;
 import com.thoughtworks.paranamer.ParameterNamesNotFoundException;
 import com.thoughtworks.paranamer.Paranamer;
+
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.interceptor.Interceptor;
 
 /**
  * Paranamer implementation for {@link ParameterNameProvider}, that reads parameter info using Named annotation on each
@@ -42,14 +42,14 @@ import com.thoughtworks.paranamer.Paranamer;
 public class ParanamerNameProvider implements ParameterNameProvider {
 	private static final Logger logger = LoggerFactory.getLogger(ParanamerNameProvider.class);
 
-	private final Paranamer info = new CachingParanamer(new AnnotationParanamer(new BytecodeReadingParanamer()));
+	private final Paranamer info = new CachingParanamer(new JakartaAnnotationParanamer(new BytecodeReadingParanamer()));
 
 	@Override
 	public Parameter[] parametersFor(final AccessibleObject executable) {
 		try {
 			String[] names = info.lookupParameterNames(executable);
 			Parameter[] params = new Parameter[names.length];
-			logger.debug("Found parameter names with paranamer for {} as {}", executable, (Object) names);
+			logger.debug("Found parameter names with paranamer for {} as {}", executable, names);
 
 			for (int i = 0; i < names.length; i++) {
 				params[i] = new Parameter(i, names[i], executable);

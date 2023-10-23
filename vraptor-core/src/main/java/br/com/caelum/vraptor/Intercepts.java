@@ -23,7 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 /**
  * Notifies vraptor to use this interceptor in the interceptor stack.<br>
@@ -35,7 +35,7 @@ import javax.enterprise.context.RequestScoped;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@javax.enterprise.inject.Stereotype
+@jakarta.enterprise.inject.Stereotype
 @RequestScoped
 public @interface Intercepts {
 	Class<?>[] before() default {};

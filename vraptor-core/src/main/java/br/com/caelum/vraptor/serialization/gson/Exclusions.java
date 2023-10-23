@@ -20,7 +20,7 @@ import static br.com.caelum.vraptor.serialization.gson.GsonSerializer.shouldSeri
 import java.lang.reflect.Field;
 import java.util.Map.Entry;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.core.ReflectionProvider;
 import br.com.caelum.vraptor.serialization.Serializee;

@@ -20,8 +20,8 @@ import br.com.caelum.vraptor.View;
 import br.com.caelum.vraptor.ioc.Container;
 import br.com.caelum.vraptor.validator.I18nMessage;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.util.ResourceBundle;
 
 /**

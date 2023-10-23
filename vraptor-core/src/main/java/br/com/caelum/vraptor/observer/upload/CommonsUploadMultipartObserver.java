@@ -17,34 +17,36 @@
 package br.com.caelum.vraptor.observer.upload;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
-import static org.apache.commons.fileupload.disk.DiskFileItemFactory.DEFAULT_SIZE_THRESHOLD;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.servlet.ServletRequest;
+import javax.naming.SizeLimitExceededException;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileItemFactory;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.core.FileUploadSizeException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
 import org.slf4j.Logger;
-
-import br.com.caelum.vraptor.events.ControllerFound;
-import br.com.caelum.vraptor.http.MutableRequest;
-import br.com.caelum.vraptor.validator.I18nMessage;
-import br.com.caelum.vraptor.validator.Validator;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multiset;
+
+import br.com.caelum.vraptor.events.ControllerFound;
+import br.com.caelum.vraptor.http.MutableRequest;
+import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor.validator.Validator;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.servlet.ServletRequest;
 
 /**
  * A multipart observer based on Apache Commons FileUpload.
@@ -61,7 +63,7 @@ public class CommonsUploadMultipartObserver {
 	public void upload(@Observes ControllerFound event, MutableRequest request,
 			MultipartConfig config, Validator validator) {
 
-		if (!ServletFileUpload.isMultipartContent(request)) {
+		if (!JakartaServletFileUpload.isMultipartContent(request)) {
 			return;
 		}
 
@@ -70,7 +72,7 @@ public class CommonsUploadMultipartObserver {
 		final Multiset<String> indexes = HashMultiset.create();
 		final Multimap<String, String> params = LinkedListMultimap.create();
 
-		ServletFileUpload uploader = createServletFileUpload(config);
+		JakartaServletFileUpload uploader = createJakartaServletFileUpload(config);
 
 		UploadSizeLimit uploadSizeLimit = event.getMethod().getMethod().getAnnotation(UploadSizeLimit.class);
 		uploader.setSizeMax(uploadSizeLimit != null ? uploadSizeLimit.sizeLimit() : config.getSizeLimit());
@@ -104,7 +106,7 @@ public class CommonsUploadMultipartObserver {
 				request.setParameter(paramName, paramValues.toArray(new String[paramValues.size()]));
 			}
 
-		} catch (final SizeLimitExceededException e) {
+		} catch (final FileUploadSizeException e) {
 			reportSizeLimitExceeded(e, validator);
 
 		} catch (FileUploadException e) {
@@ -119,9 +121,9 @@ public class CommonsUploadMultipartObserver {
 	/**
 	 * This method is called when the {@link SizeLimitExceededException} was thrown.
 	 */
-	protected void reportSizeLimitExceeded(final SizeLimitExceededException e, Validator validator) {
-		validator.add(new I18nMessage("upload", "file.limit.exceeded", e.getActualSize(), e.getPermittedSize()));
-		logger.warn("The file size limit was exceeded. Actual {} permitted {}", e.getActualSize(), e.getPermittedSize());
+	protected void reportSizeLimitExceeded(final FileUploadSizeException e, Validator validator) {
+		validator.add(new I18nMessage("upload", "file.limit.exceeded", e.getActualSize(), e.getPermitted()));
+		logger.warn("The file size limit was exceeded. Actual {} permitted {}", e.getActualSize(), e.getPermitted());
 	}
 
 	protected void reportFileUploadException(FileUploadException e, Validator validator) {
@@ -138,19 +140,22 @@ public class CommonsUploadMultipartObserver {
 		logger.debug("Uploaded file: {} with {}", name, upload);
 	}
 
-	protected ServletFileUpload createServletFileUpload(MultipartConfig config) {
-		FileItemFactory factory = new DiskFileItemFactory(DEFAULT_SIZE_THRESHOLD, config.getDirectory());
+	protected JakartaServletFileUpload createJakartaServletFileUpload(MultipartConfig config) {
+		FileItemFactory factory = DiskFileItemFactory.builder().setPath(config.getDirectory().toPath()).get();
+
 		logger.debug("Using repository {} for file upload", config.getDirectory());
 
-		return new ServletFileUpload(factory);
+		return new JakartaServletFileUpload(factory);
 	}
 
 	protected String getValue(FileItem item, ServletRequest request) {
 		String encoding = request.getCharacterEncoding();
 		if (!isNullOrEmpty(encoding)) {
 			try {
-				return item.getString(encoding);
+				return item.getString(Charset.forName(encoding));
 			} catch (UnsupportedEncodingException e) {
+				logger.debug("Request has an invalid encoding. Ignoring it", e);
+			} catch (IOException e) {
 				logger.debug("Request has an invalid encoding. Ignoring it", e);
 			}
 		}

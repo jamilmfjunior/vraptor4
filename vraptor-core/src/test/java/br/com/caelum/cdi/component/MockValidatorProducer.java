@@ -17,9 +17,9 @@ package br.com.caelum.cdi.component;
 
 import static org.mockito.Mockito.mock;
 
-import javax.enterprise.inject.Produces;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import jakarta.enterprise.inject.Produces;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 public class MockValidatorProducer {
 

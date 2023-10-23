@@ -17,7 +17,7 @@
 
 package br.com.caelum.vraptor.view;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 import br.com.caelum.vraptor.View;
 

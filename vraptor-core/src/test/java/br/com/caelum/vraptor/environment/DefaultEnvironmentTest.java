@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.Before;
 import org.junit.Rule;

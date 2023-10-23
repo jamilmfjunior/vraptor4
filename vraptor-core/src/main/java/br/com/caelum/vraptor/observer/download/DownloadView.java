@@ -18,9 +18,9 @@ package br.com.caelum.vraptor.observer.download;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.View;
 

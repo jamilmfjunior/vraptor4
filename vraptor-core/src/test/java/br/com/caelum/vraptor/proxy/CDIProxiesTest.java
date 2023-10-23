@@ -7,8 +7,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.enterprise.context.*;
-import javax.inject.Inject;
+import jakarta.enterprise.context.*;
+import jakarta.inject.Inject;
 
 import static br.com.caelum.vraptor.proxy.CDIProxies.*;
 import static org.hamcrest.Matchers.equalTo;

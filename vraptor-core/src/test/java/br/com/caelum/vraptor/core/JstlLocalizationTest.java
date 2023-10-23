@@ -15,8 +15,8 @@
  */
 package br.com.caelum.vraptor.core;
 
-import static javax.servlet.jsp.jstl.core.Config.FMT_LOCALE;
-import static javax.servlet.jsp.jstl.core.Config.FMT_LOCALIZATION_CONTEXT;
+import static jakarta.servlet.jsp.jstl.core.Config.FMT_LOCALE;
+import static jakarta.servlet.jsp.jstl.core.Config.FMT_LOCALIZATION_CONTEXT;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -28,11 +28,11 @@ import java.util.ListResourceBundle;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.jstl.core.Config;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.jstl.core.Config;
+import jakarta.servlet.jsp.jstl.fmt.LocalizationContext;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -26,7 +26,7 @@ import java.io.OutputStream;
 import java.nio.file.CopyOption;
 import java.nio.file.Path;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import org.apache.commons.io.IOUtils;
 

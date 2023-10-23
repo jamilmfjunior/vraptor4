@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import br.com.caelum.vraptor.controller.DefaultControllerMethod;
 import br.com.caelum.vraptor.core.MethodInfo;
@@ -36,40 +36,40 @@ public class DeserializingAndInstantiatorIntegrationTest {
 	@Mock private Container container;
 	@Mock private Status status;
 	@Mock private Deserializer deserializer;
-	
+
 	private MethodInfo methodInfo;
 	private ParametersInstantiator instantiator;
 	private DeserializingObserver deserializing;
-	
+
 	private DefaultControllerMethod controllerMethod;
-	
+
 
 	@Before
 	public void setUp() throws Exception {
 		when(request.getParameterNames()).thenReturn(Collections.<String> emptyEnumeration());
 		when(deserializers.deserializerFor("application/xml", container)).thenReturn(deserializer);
 		when(request.getContentType()).thenReturn("application/xml");
-		
+
 		methodInfo = new MethodInfo(new ParanamerNameProvider());
 		instantiator = new ParametersInstantiator(provider, methodInfo, validator, request, flash);
 		deserializing = new DeserializingObserver(deserializers, container);
-		
+
 		controllerMethod = new DefaultControllerMethod(null, DeserializingObserverTest
 				.DummyResource.class.getDeclaredMethod("consumeXml", String.class, String.class));
-		
+
 		when(provider.getParametersFor(controllerMethod, Collections.<Message>emptyList())).thenReturn(new Object[] { "123", "ignored"});
-		
+
 		when(deserializer.deserialize(null, controllerMethod)).thenReturn(new Object[] {null, "XMlValue"});
 		methodInfo.setControllerMethod(controllerMethod);
 	}
-	
+
 	@Test
 	public void shouldDeserializeWhenInstantiatorRunsBefore() throws Exception {
 		instantiator.instantiate(new InterceptorsReady(controllerMethod));
 		deserializing.deserializes(new InterceptorsReady(controllerMethod), request, methodInfo, status);
 		assertEquals("123", methodInfo.getValuedParameters()[0].getValue());
 		assertEquals("XMlValue", methodInfo.getValuedParameters()[1].getValue());
-	}	
+	}
 
 	@Test
 	public void shouldDeserializeWhenInstantiatorRunsAfter() throws Exception {
@@ -77,6 +77,6 @@ public class DeserializingAndInstantiatorIntegrationTest {
 		instantiator.instantiate(new InterceptorsReady(controllerMethod));
 		assertEquals("123", methodInfo.getValuedParameters()[0].getValue());
 		assertEquals("XMlValue", methodInfo.getValuedParameters()[1].getValue());
-	}	
-	
+	}
+
 }

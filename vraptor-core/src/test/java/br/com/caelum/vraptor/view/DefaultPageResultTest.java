@@ -18,7 +18,7 @@
 package br.com.caelum.vraptor.view;
 
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.only;
@@ -27,8 +27,8 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 
 import org.junit.Before;
 import org.junit.Rule;

@@ -17,9 +17,9 @@ package br.com.caelum.vraptor.serialization;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.controller.BeanClass;
 import br.com.caelum.vraptor.core.DeserializesQualifier;

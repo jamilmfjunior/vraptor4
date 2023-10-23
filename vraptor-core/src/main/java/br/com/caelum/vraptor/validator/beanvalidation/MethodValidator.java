@@ -22,16 +22,16 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.MessageInterpolator;
-import javax.validation.Path.Node;
-import javax.validation.Path.ParameterNode;
-import javax.validation.metadata.BeanDescriptor;
-import javax.validation.metadata.MethodDescriptor;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.MessageInterpolator;
+import jakarta.validation.Path.Node;
+import jakarta.validation.Path.ParameterNode;
+import jakarta.validation.metadata.BeanDescriptor;
+import jakarta.validation.metadata.MethodDescriptor;
 
 import org.slf4j.Logger;
 
@@ -58,7 +58,7 @@ public class MethodValidator {
 
 	private final Instance<Locale> locale;
 	private final MessageInterpolator interpolator;
-	private final javax.validation.Validator bvalidator;
+	private final jakarta.validation.Validator bvalidator;
 
 	/**
 	 * @deprecated CDI eyes only
@@ -68,7 +68,7 @@ public class MethodValidator {
 	}
 
 	@Inject
-	public MethodValidator(Instance<Locale> locale, MessageInterpolator interpolator, javax.validation.Validator bvalidator) {
+	public MethodValidator(Instance<Locale> locale, MessageInterpolator interpolator, jakarta.validation.Validator bvalidator) {
 		this.locale = locale;
 		this.interpolator = interpolator;
 		this.bvalidator = bvalidator;

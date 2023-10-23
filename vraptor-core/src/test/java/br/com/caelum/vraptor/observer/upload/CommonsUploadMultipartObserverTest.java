@@ -18,14 +18,14 @@ package br.com.caelum.vraptor.observer.upload;
 import static com.google.common.io.ByteStreams.toByteArray;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
@@ -38,10 +38,11 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItem;
+//import org.apache.commons.fileupload2.core.FileUploadBase;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.core.FileUploadSizeException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -76,7 +77,7 @@ public class CommonsUploadMultipartObserverTest {
 	@Mock private ControllerFound event;
 	@Mock private MutableRequest request;
 	@Mock private Validator validator;
-	@Mock private ServletFileUpload servletFileUpload;
+	@Mock private JakartaServletFileUpload servletFileUpload;
 
 	private MultipartConfig config;
 	private CommonsUploadMultipartObserver observer;
@@ -107,7 +108,7 @@ public class CommonsUploadMultipartObserverTest {
 
 		observer.upload(event, request, config, validator);
 
-		verifyZeroInteractions(config);
+		verifyNoInteractions(config);
 	}
 
 	@Test
@@ -118,7 +119,7 @@ public class CommonsUploadMultipartObserverTest {
 		elements.add(new MockFileItem("foo", "blah"));
 		elements.add(new MockFileItem("bar", "blah blah"));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 		when(request.getCharacterEncoding()).thenReturn("UTF-8");
 
@@ -136,7 +137,7 @@ public class CommonsUploadMultipartObserverTest {
 		elements.add(new MockFileItem("foo", "blah"));
 		elements.add(new MockFileItem("bar", "blah blah"));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 		when(request.getCharacterEncoding()).thenReturn("BLAH");
 
@@ -156,7 +157,7 @@ public class CommonsUploadMultipartObserverTest {
 		elements.add(new MockFileItem("thefile0", "foo.txt", "foo".getBytes()));
 		elements.add(new MockFileItem("thefile1", "bar.txt", "bar".getBytes()));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, config, validator);
@@ -178,7 +179,7 @@ public class CommonsUploadMultipartObserverTest {
 		final List<FileItem> elements = new ArrayList<>();
 		elements.add(new MockFileItem("thefile0", "", new byte[0]));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, config, validator);
@@ -192,7 +193,7 @@ public class CommonsUploadMultipartObserverTest {
 		elements.add(new MockFileItem("myfile0", "foo.txt", "foo".getBytes()));
 		elements.add(new MockFileItem("myfile1", "foo.txt", "bar".getBytes()));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, config, validator);
@@ -212,7 +213,7 @@ public class CommonsUploadMultipartObserverTest {
 		elements.add(new MockFileItem("myfile0[]", "foo.txt", "foo".getBytes()));
 		elements.add(new MockFileItem("myfile0[]", "foo.txt", "bar".getBytes()));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, config, validator);
@@ -228,8 +229,8 @@ public class CommonsUploadMultipartObserverTest {
 	public void doNothingWhenFileUploadExceptionOccurs() throws Exception {
 		when(event.getMethod()).thenReturn(uploadMethodController);
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
-		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadException());
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadException(""));
 
 		observer.upload(event, request, config, validator);
 	}
@@ -238,8 +239,8 @@ public class CommonsUploadMultipartObserverTest {
 	public void shouldValidateWhenSizeLimitExceededExceptionOccurs() throws Exception {
 		when(event.getMethod()).thenReturn(uploadMethodController);
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
-		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadBase.SizeLimitExceededException("", 3L, 2L));
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadSizeException("", 3L, 2L));
 
 		observer.upload(event, request, config, validator);
 
@@ -250,9 +251,9 @@ public class CommonsUploadMultipartObserverTest {
 	public void handleValidatorMessageWhenFileUploadExceptionOccurs() throws Exception {
 		when(event.getMethod()).thenReturn(uploadMethodController);
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
-		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadException());
-		
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadException(""));
+
 		observer.upload(event, request, config, validator);
 
 		verify(validator).add(any(I18nMessage.class));
@@ -262,8 +263,8 @@ public class CommonsUploadMultipartObserverTest {
 	public void shouldValidateWhenSizeLimitExceededExceptionOccursFromAnnotation() throws Exception {
 		when(event.getMethod()).thenReturn(uploadMethodControllerWithAnnotation);
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
-		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadBase.SizeLimitExceededException("", 3L, 2L));
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(servletFileUpload.parseRequest(request)).thenThrow(new FileUploadSizeException("", 3L, 2L));
 
 		observer.upload(event, request, config, validator);
 
@@ -281,7 +282,7 @@ public class CommonsUploadMultipartObserverTest {
 		final List<FileItem> elements = new ArrayList<>();
 		elements.add(new MockFileItem("myfile", "foo.txt", "bar".getBytes()));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, configSpy, validator);
@@ -297,7 +298,7 @@ public class CommonsUploadMultipartObserverTest {
 		byte[] content = "foo".getBytes();
 		elements.add(new MockFileItem("thefile0", "text/plain", "file.txt", content));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, config, validator);
@@ -318,7 +319,7 @@ public class CommonsUploadMultipartObserverTest {
 		List<FileItem> elements = new ArrayList<>();
 		elements.add(new MockFileItem("thefile0", "text/plain", "/unix/path/file0.txt", new byte[0]));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, config, validator);
@@ -336,7 +337,7 @@ public class CommonsUploadMultipartObserverTest {
 		List<FileItem> elements = new ArrayList<>();
 		elements.add(new MockFileItem("thefile0", "text/plain", "c:/windows/path/file0.txt", new byte[0]));
 
-		when(observer.createServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, config, validator);

@@ -23,8 +23,8 @@ import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 import java.util.NoSuchElementException;
 
 import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;

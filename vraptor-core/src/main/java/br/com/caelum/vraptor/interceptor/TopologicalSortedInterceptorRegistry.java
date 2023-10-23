@@ -17,7 +17,7 @@ package br.com.caelum.vraptor.interceptor;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import br.com.caelum.vraptor.Intercepts;
 

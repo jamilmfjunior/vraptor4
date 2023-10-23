@@ -22,9 +22,9 @@ import static br.com.caelum.vraptor.proxy.CDIProxies.unproxifyIfPossible;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.servlet.ServletException;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

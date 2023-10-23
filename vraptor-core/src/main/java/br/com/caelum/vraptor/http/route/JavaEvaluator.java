@@ -20,8 +20,8 @@ package br.com.caelum.vraptor.http.route;
 import java.lang.reflect.Array;
 import java.util.Collection;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.VRaptorException;
 import br.com.caelum.vraptor.core.ReflectionProvider;

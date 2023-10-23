@@ -22,11 +22,11 @@ import br.com.caelum.vraptor.controller.DefaultControllerInstance;
 import br.com.caelum.vraptor.events.ControllerFound;
 import br.com.caelum.vraptor.ioc.Container;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 
 import static com.google.common.base.Preconditions.checkState;
 

@@ -17,7 +17,7 @@
 
 package br.com.caelum.vraptor;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * The base {@link Exception} type for VRaptor. All VRaptor exceptions must be extends this.

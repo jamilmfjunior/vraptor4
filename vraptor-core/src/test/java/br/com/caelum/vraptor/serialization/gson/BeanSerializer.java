@@ -2,10 +2,10 @@ package br.com.caelum.vraptor.serialization.gson;
 
 import com.google.gson.*;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Alternative;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.interceptor.Interceptor;
 import java.lang.reflect.Type;
 
 @RegisterStrategy(RegisterType.SINGLE)

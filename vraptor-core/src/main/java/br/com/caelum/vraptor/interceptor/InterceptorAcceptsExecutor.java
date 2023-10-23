@@ -19,8 +19,8 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 
 import java.lang.reflect.Method;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class InterceptorAcceptsExecutor {

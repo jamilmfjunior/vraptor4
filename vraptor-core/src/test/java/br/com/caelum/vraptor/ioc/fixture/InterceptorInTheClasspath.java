@@ -16,7 +16,7 @@
  */
 package br.com.caelum.vraptor.ioc.fixture;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;

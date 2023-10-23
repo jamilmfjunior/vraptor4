@@ -17,7 +17,7 @@ package br.com.caelum.vraptor.http;
 
 import java.util.Objects;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Represents a parameter with value.

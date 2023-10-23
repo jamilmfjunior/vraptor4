@@ -17,9 +17,9 @@ package br.com.caelum.vraptor.interceptor;
 
 import java.lang.reflect.Method;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.AfterCall;
 import br.com.caelum.vraptor.AroundCall;

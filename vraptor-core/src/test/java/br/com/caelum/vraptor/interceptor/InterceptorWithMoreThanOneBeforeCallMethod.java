@@ -15,7 +15,7 @@
  */
 package br.com.caelum.vraptor.interceptor;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 import br.com.caelum.vraptor.BeforeCall;
 import br.com.caelum.vraptor.Intercepts;

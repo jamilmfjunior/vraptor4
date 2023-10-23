@@ -17,8 +17,8 @@ package br.com.caelum.vraptor.serialization;
 
 import static br.com.caelum.vraptor.view.Results.page;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.interceptor.TypeNameExtractor;

@@ -17,7 +17,7 @@
 
 package br.com.caelum.vraptor;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 @Vetoed
 public class InterceptionException extends VRaptorException {

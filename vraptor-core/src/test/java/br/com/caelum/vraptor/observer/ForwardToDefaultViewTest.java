@@ -25,7 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.controller.ControllerMethod;
@@ -57,7 +57,7 @@ public class ForwardToDefaultViewTest {
 		interceptor.forward(new RequestSucceded(request, response));
 		verify(result, never()).use(PageResult.class);
 	}
-	
+
 	@Test
 	public void doesNothingIfResponseIsCommited() {
 		when(response.isCommitted()).thenReturn(true);

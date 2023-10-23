@@ -20,7 +20,7 @@ package br.com.caelum.vraptor.controller;
 import java.lang.annotation.Annotation;
 import java.util.Objects;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 @Vetoed
 public class DefaultBeanClass implements BeanClass {

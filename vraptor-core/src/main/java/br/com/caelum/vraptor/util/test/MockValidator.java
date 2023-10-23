@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.enterprise.inject.Vetoed;
-import javax.validation.ConstraintViolation;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.validation.ConstraintViolation;
 
 import br.com.caelum.vraptor.View;
 import br.com.caelum.vraptor.validator.AbstractValidator;

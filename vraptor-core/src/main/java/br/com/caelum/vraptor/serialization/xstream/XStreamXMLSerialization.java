@@ -18,20 +18,20 @@ package br.com.caelum.vraptor.serialization.xstream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.xml.CompactWriter;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 
 import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.serialization.Serializer;
 import br.com.caelum.vraptor.serialization.SerializerBuilder;
 import br.com.caelum.vraptor.serialization.XMLSerialization;
 import br.com.caelum.vraptor.view.ResultException;
-
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import com.thoughtworks.xstream.io.xml.CompactWriter;
-import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletResponse;
+import misc.AddOpens;
 
 /**
  * XStream implementation for XmlSerialization
@@ -46,10 +46,12 @@ public class XStreamXMLSerialization implements XMLSerialization {
 	private final XStreamBuilder builder;
 	private final Environment environment;
 	private boolean indented;
+	boolean success = AddOpens.open("java.base", "java.util", "java.net");
 
-	/** 
+	/**
 	 * @deprecated CDI eyes only
 	 */
+	@Deprecated
 	protected XStreamXMLSerialization() {
 		this(null, null, null);
 	}
@@ -70,7 +72,7 @@ public class XStreamXMLSerialization implements XMLSerialization {
 	public boolean accepts(String format) {
 		return "xml".equals(format);
 	}
-	
+
 	@Override
 	public XMLSerialization indented() {
 		indented = true;

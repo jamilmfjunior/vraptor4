@@ -17,7 +17,7 @@ package br.com.caelum.vraptor.environment;
 
 import java.net.URL;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 /**
  * Environment implementation that doesn't' anything.

@@ -23,9 +23,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
-import javax.servlet.FilterChain;
-import javax.servlet.http.*;
+import jakarta.inject.Inject;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.*;
 
 import static org.hamcrest.Matchers.is;
 import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;

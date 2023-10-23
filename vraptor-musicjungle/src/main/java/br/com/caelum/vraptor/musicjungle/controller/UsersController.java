@@ -17,7 +17,7 @@
 package br.com.caelum.vraptor.musicjungle.controller;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;

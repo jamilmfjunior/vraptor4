@@ -18,9 +18,9 @@ package br.com.caelum.vraptor.ioc;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 
 import org.slf4j.Logger;
 

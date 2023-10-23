@@ -24,9 +24,9 @@ import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.inject.Inject;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 import static org.hamcrest.Matchers.is;
 import static org.jboss.shrinkwrap.api.asset.EmptyAsset.INSTANCE;

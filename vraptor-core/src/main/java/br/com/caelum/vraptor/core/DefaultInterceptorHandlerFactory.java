@@ -15,8 +15,8 @@
  */
 package br.com.caelum.vraptor.core;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.cache.CacheStore;

@@ -266,12 +266,6 @@
             <version>3.0.2.Final</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-core-impl</artifactId>
-            <version>4.0.3.Final</version>
-            <scope>test</scope>
-        </dependency>
         
 	</dependencies>
 

@@ -15,6 +15,9 @@
  */
 package br.com.caelum.vraptor.proxy;
 
+import org.jboss.weld.bean.proxy.ProxyObject;
+import org.jboss.weld.interceptor.util.proxy.TargetInstanceProxy;
+
 import com.thoughtworks.xstream.InitializationException;
 
 import jakarta.enterprise.inject.Vetoed;
@@ -34,9 +37,7 @@ public final class CDIProxies {
 	}
 
 	public static boolean isCDIProxy(Class<?> type) {
-		System.out.println(type);
-		return true;
-		//return ProxyObject.class.isAssignableFrom(type);
+		return ProxyObject.class.isAssignableFrom(type);
 	}
 
 	public static <T> Class<?> extractRawTypeIfPossible(Class<T> type) {
@@ -45,11 +46,10 @@ public final class CDIProxies {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> T unproxifyIfPossible(T source) {
-		System.out.println(source);
-//		if (source instanceof TargetInstanceProxy) {
-//			TargetInstanceProxy<T> target = (TargetInstanceProxy) source;
-//			return target.weld_getTargetInstance();
-//		}
+		if (source instanceof TargetInstanceProxy) {
+			TargetInstanceProxy<T> target = (TargetInstanceProxy) source;
+			return target.weld_getTargetInstance();
+		}
 		return source;
 	}
 }

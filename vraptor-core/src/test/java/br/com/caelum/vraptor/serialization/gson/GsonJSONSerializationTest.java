@@ -37,8 +37,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,6 +59,7 @@ import br.com.caelum.vraptor.serialization.JSONSerialization;
 import br.com.caelum.vraptor.serialization.Serializee;
 import br.com.caelum.vraptor.serialization.SkipSerialization;
 import br.com.caelum.vraptor.util.test.MockInstanceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class GsonJSONSerializationTest {
 
@@ -74,7 +73,7 @@ public class GsonJSONSerializationTest {
 	@Before
 	public void setup() throws Exception {
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT-0300"));
-		
+
 		stream = new ByteArrayOutputStream();
 
 		response = mock(HttpServletResponse.class);
@@ -89,45 +88,51 @@ public class GsonJSONSerializationTest {
 		jsonSerializers.add(new CollectionSerializer());
 		jsonSerializers.add(new EnumSerializer());
 
-		builder = new GsonBuilderWrapper(new MockInstanceImpl<>(jsonSerializers), new MockInstanceImpl<>(jsonDeserializers), 
+		builder = new GsonBuilderWrapper(new MockInstanceImpl<>(jsonSerializers), new MockInstanceImpl<>(jsonDeserializers),
 				new Serializee(new DefaultReflectionProvider()), new DefaultReflectionProvider());
 		serialization = new GsonJSONSerialization(response, extractor, builder, environment, new DefaultReflectionProvider());
 	}
-	
+
 	private static class AlwaysFlushWriter extends PrintWriter {
 
 		public AlwaysFlushWriter(OutputStream out) {
-			super(out);
+			super(out, true);
 		}
-		
+
 		@Override
 		public void write(String s) {
 			super.write(s);
 			super.flush();
 		}
-		
+
+		@Override
+		public void write(int c) {
+			super.write(c);
+			super.flush();
+		}
+
 	}
-	
+
 	@SkipSerialization
 	public static class UserPrivateInfo {
 		String cpf;
-		
+
 		String phone;
-		
+
 		public UserPrivateInfo(String cpf, String phone) {
 			this.cpf = cpf;
 			this.phone = phone;
 		}
 	}
-	
+
 	public static class User {
 		String login;
-		
+
 		@SkipSerialization
 		String password;
-		
+
 		UserPrivateInfo info;
-		
+
 		public User(String login, String password, UserPrivateInfo info) {
 			this.login = login;
 			this.password = password;
@@ -340,6 +345,11 @@ public class GsonJSONSerializationTest {
 	}
 
 	@Test
+	public void gsontest() {
+		GsonSerializerBuilder builder;
+	}
+
+	@Test
 	public void shouldSerializeCollectionWithPrefixTag() {
 		String expectedResult = "{\"price\":15.0,\"comments\":\"pack it nicely, please\"}";
 		expectedResult += "," + expectedResult;
@@ -373,7 +383,7 @@ public class GsonJSONSerializationTest {
 		assertThat(result(), containsString("\"caelum\""));
 		assertThat(result(), containsString("login"));
 	}
-	
+
 	@Test
 	public void shouldExcludeOmmitedClasses() {
 		User user = new User("caelum", "pwd12345",
@@ -466,7 +476,7 @@ public class GsonJSONSerializationTest {
 		assertThat(result(), containsString("\"name\":\"any item\""));
 		assertThat(result(), containsString("\"price\":12.99"));
 	}
-	
+
 	@Test
 	public void shouldExcludeAllPrimitiveFieldsInACollection() {
 		String expectedResult = "{\"list\":[{},{}]}";
@@ -475,7 +485,7 @@ public class GsonJSONSerializationTest {
 		orders.add(new Order(new Client("Rafael Dipold"), 15.0, "gift bags, please"));
 		serialization.from(orders).excludeAll().serialize();
 		assertThat(result(), is(equalTo(expectedResult)));
-	}	
+	}
 
 	@Test
 	public void shouldOptionallyExcludeFieldsFromIncludedListChildFields() {
@@ -533,14 +543,14 @@ public class GsonJSONSerializationTest {
 			return new JsonParser().parse("[testing]").getAsJsonArray();
 		}
 	}
-	
+
 	//Expect that a ParameterizedType should be registered
 	static class EnumSerializer implements JsonSerializer<Enum<?>> {
 		@Override public JsonElement serialize(Enum<?> src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
 			return new JsonPrimitive(src.name());
 		}
 	}
-	
+
 	@Test
 	public void shouldUseCollectionConverterWhenItExists() {
 		String expectedResult = "[\"testing\"]";
@@ -562,7 +572,7 @@ public class GsonJSONSerializationTest {
 
 		assertThat(result, is(equalTo(expectedResult)));
 	}
-	
+
 	@Test
 	public void shouldSerializeDateWithISO8601() {
 		Date date = new GregorianCalendar(1988, 0, 25, 1, 30, 15).getTime();
@@ -608,7 +618,7 @@ public class GsonJSONSerializationTest {
 
 	@Test
 	public void shouldSerializeVersionedJsonFieldsWithSinceAnnotation() {
-		JSONSerialization serialization = new GsonJSONSerialization(response, extractor, builder, 
+		JSONSerialization serialization = new GsonJSONSerialization(response, extractor, builder,
 				environment, new DefaultReflectionProvider());
 
 		String expectedResult = "{\"client\":{\"name\":\"adolfo eloy\"}}";
@@ -619,7 +629,7 @@ public class GsonJSONSerializationTest {
 
 	@Test
 	public void shouldSerializeRecursivelyVersionedJsonFields() {
-		JSONSerialization serialization = new GsonJSONSerialization(response, extractor, builder, 
+		JSONSerialization serialization = new GsonJSONSerialization(response, extractor, builder,
 				environment, new DefaultReflectionProvider());
 
 		String expectedResult = "{\"client\":{\"name\":\"adolfo eloy\",\"address\":{\"street\":\"antonio agu\",\"city\":\"osasco\"}}}";
@@ -628,23 +638,23 @@ public class GsonJSONSerializationTest {
 		serialization.version(1.0).from(client).recursive().serialize();
 		assertThat(result(), is(equalTo(expectedResult)));
 	}
-	
+
 	@Test
 	public void shouldSerializeNullfieldswhenRequested(){
 		Address address = new Address("Alameda street", null);
 		serialization.serializeNulls().from(address).serialize();
-		
+
 		String expectedResult = "{\"address\":{\"street\":\"Alameda street\",\"city\":null}}";
 		assertThat(result(), is(equalTo(expectedResult)));
 	}
-	
+
 	@Test
 	public void shouldNotSerializeNullFieldsByDefault(){
 		Address address = new Address("Alameda street", null);
 		serialization.from(address).serialize();
-		
+
 		String expectedResult = "{\"address\":{\"street\":\"Alameda street\"}}";
 		assertThat(result(), is(equalTo(expectedResult)));
 	}
-	
+
 }

@@ -16,19 +16,15 @@
 package br.com.caelum.vraptor.validator;
 
 import static br.com.caelum.vraptor.controller.DefaultControllerMethod.instanceFor;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import java.lang.reflect.Method;
 import java.util.Locale;
-
-import jakarta.validation.MessageInterpolator;
-import jakarta.validation.ValidatorFactory;
-import jakarta.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.Email;
 import org.junit.Before;
@@ -44,10 +40,13 @@ import br.com.caelum.vraptor.util.test.MockInstanceImpl;
 import br.com.caelum.vraptor.util.test.MockValidator;
 import br.com.caelum.vraptor.validator.beanvalidation.MessageInterpolatorFactory;
 import br.com.caelum.vraptor.validator.beanvalidation.MethodValidator;
+import jakarta.validation.MessageInterpolator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.Min;
 
 /**
  * Test method validator feature.
- * 
+ *
  * @author Otávio Scherer Garcia
  * @author Rodrigo Turini
  * @since 3.5
@@ -97,7 +96,7 @@ public class MethodValidatorTest {
 		getMethodValidator().validate(new MethodReady(withoutConstraint), controller, methodInfo, validator);
 		verify(controller, never()).getController();
 	}
-	
+
 	@Test
 	public void shouldNotAcceptIfMethodDoesNotHaveConstraintAndHasDomainObjectParameter() {
 		DefaultControllerInstance controller = spy(instance);
@@ -110,18 +109,18 @@ public class MethodValidatorTest {
 		methodInfo.setControllerMethod(withConstraint);
 		methodInfo.setParameter(0, "a");
 
-		Message[] expected = { new SimpleMessage("email", "deve ser maior ou igual a 10"),
-				new SimpleMessage("email", "Não é um endereço de e-mail") };
+		Message[] expected = { new SimpleMessage("email", "deve ser maior que ou igual à 10"),
+				new SimpleMessage("email", "deve ser um endereço de e-mail bem formado") };
 
 		getMethodValidator().validate(new MethodReady(withConstraint), instance, methodInfo, validator);
 		assertThat(validator.getErrors(), hasSize(2));
-		assertThat(validator.getErrors(), containsInAnyOrder(expected));
+		assertThat(validator.getErrors(), hasItems(expected));
 	}
 
 	private MethodValidator getMethodValidator() {
 		return new MethodValidator(new MockInstanceImpl<>(new Locale("pt", "br")), interpolator, validatorFactory.getValidator());
 	}
-	
+
 	public class Example {
 		private int number;
 		private String name;
@@ -140,11 +139,11 @@ public class MethodValidatorTest {
 
 		public void setName(String name) {
 			this.name = name;
-		}		
+		}
 	}
-	
+
 	public class MyController {
-		
+
 		public void withConstraint(@Min(10) @Email String email) {
 		}
 

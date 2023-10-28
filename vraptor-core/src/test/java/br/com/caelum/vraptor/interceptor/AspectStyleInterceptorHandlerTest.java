@@ -178,7 +178,7 @@ public class AspectStyleInterceptorHandlerTest {
 				Mockito.any(ControllerInstance.class));
 
 		verify(stack).next(Mockito.same(controllerMethod),
-				Mockito.any(ControllerInstance.class));
+				Mockito.isNull());
 	}
 
 	@Test

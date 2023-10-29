@@ -35,21 +35,10 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
-import javassist.NotFoundException;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import jakarta.servlet.ServletContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.ForwardingMap;
 
 import br.com.caelum.vraptor.controller.BeanClass;
 import br.com.caelum.vraptor.core.ReflectionProvider;
@@ -59,12 +48,22 @@ import br.com.caelum.vraptor.proxy.Proxifier;
 import br.com.caelum.vraptor.proxy.ProxyCreationException;
 import br.com.caelum.vraptor.proxy.SuperMethod;
 import br.com.caelum.vraptor.util.StringUtils;
-
-import com.google.common.collect.ForwardingMap;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.ServletContext;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
+import javassist.NotFoundException;
+import misc.AddOpens;
 
 /**
  * View helper for generating uris
- * 
+ *
  * @author Otávio Garcia
  * @author Lucas Cavalcanti
  * @since 3.4.0
@@ -79,14 +78,16 @@ public class LinkToHandler extends ForwardingMap<Class<?>, Object> {
 	private final Router router;
 	private final Proxifier proxifier;
 	private final ReflectionProvider reflectionProvider;
+	boolean success = AddOpens.open("java.base", "java.util", "java.net", "java.lang");
 
 	private final ConcurrentMap<Class<?>, Class<?>> interfaces = new ConcurrentHashMap<>();
 
 	private final Lock lock = new ReentrantLock();
 
-	/** 
+	/**
 	 * @deprecated CDI eyes only
 	 */
+	@Deprecated
 	protected LinkToHandler() {
 		this(null, null, null, null);
 	}
@@ -112,7 +113,7 @@ public class LinkToHandler extends ForwardingMap<Class<?>, Object> {
 	@Override
 	public Object get(Object key) {
 		logger.debug("getting key {}", key);
-		
+
 		BeanClass beanClass = (BeanClass) key;
 		final Class<?> controller = beanClass.getType();
 		Class<?> linkToInterface = interfaces.get(controller);
@@ -150,7 +151,7 @@ public class LinkToHandler extends ForwardingMap<Class<?>, Object> {
 			String methodName, List<Object> params) {
 		return new Linker(context, router, controller, methodName, params, reflectionProvider);
 	}
-	
+
 	private Class<?> createLinkToInterface(final Class<?> controller, String interfaceName) {
 		try {
 			return Class.forName(interfaceName);
@@ -196,19 +197,19 @@ public class LinkToHandler extends ForwardingMap<Class<?>, Object> {
 	private CtClass[] createParameters(CtClass objectType, int num) {
 		CtClass[] params = new CtClass[num];
 		fill(params, objectType);
-		
+
 		return params;
 	}
 
 	private List<Method> getMethods(Class<?> controller) {
 		List<Method> methods = new ArrayList<>();
-		
+
 		for (Method method : reflectionProvider.getMethodsFor(controller)) {
 			if (!method.getDeclaringClass().equals(Object.class)) {
 				methods.add(method);
 			}
 		}
-		
+
 		sort(methods, new SortByArgumentsLengthDesc());
 		return methods;
 	}

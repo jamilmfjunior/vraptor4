@@ -18,16 +18,15 @@ package br.com.caelum.vraptor.serialization.xstream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
+import com.thoughtworks.xstream.XStream;
 
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.http.Parameter;
 import br.com.caelum.vraptor.http.ParameterNameProvider;
 import br.com.caelum.vraptor.serialization.Deserializer;
 import br.com.caelum.vraptor.serialization.Deserializes;
-
-import com.thoughtworks.xstream.XStream;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
 /**
  * XStream based Xml Deserializer
@@ -44,9 +43,10 @@ public class XStreamXMLDeserializer implements Deserializer {
 	private final ParameterNameProvider provider;
 	private final XStreamBuilder builder;
 
-	/** 
+	/**
 	 * @deprecated CDI eyes only
 	 */
+	@Deprecated
 	protected XStreamXMLDeserializer() {
 		this(null, null);
 	}
@@ -78,6 +78,7 @@ public class XStreamXMLDeserializer implements Deserializer {
 	 */
 	public XStream getConfiguredXStream(Method javaMethod, Class<?>[] types) {
 		XStream xStream = builder.recursive().xmlInstance();
+		xStream.allowTypes(types);
 
 		xStream.processAnnotations(types);
 

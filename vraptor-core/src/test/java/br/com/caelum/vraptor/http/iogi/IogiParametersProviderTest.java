@@ -57,14 +57,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import com.google.common.collect.ImmutableMap;
 
 import br.com.caelum.iogi.parameters.Parameter;
 import br.com.caelum.iogi.parameters.Parameters;
@@ -83,8 +83,8 @@ import br.com.caelum.vraptor.http.ParametersProvider;
 import br.com.caelum.vraptor.http.ParanamerNameProvider;
 import br.com.caelum.vraptor.ioc.Container;
 import br.com.caelum.vraptor.validator.Message;
-
-import com.google.common.collect.ImmutableMap;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class IogiParametersProviderTest {
 
@@ -105,7 +105,7 @@ public class IogiParametersProviderTest {
 		nameProvider = new ParanamerNameProvider();
 		errors = new ArrayList<>();
 		iogi = createIogiInstance();
-		
+
 		when(converters.existsFor(Long.class)).thenReturn(true);
 		when(converters.existsFor(long.class)).thenReturn(true);
 		when(converters.existsFor(String.class)).thenReturn(true);
@@ -384,7 +384,7 @@ public class IogiParametersProviderTest {
 
 		ABC returned = getFirstParameterFor(method("abc", ABC.class));
 
-		Address[] address = (Address[]) returned.getAddresses().toArray(new Address[2]);
+		Address[] address = returned.getAddresses().toArray(new Address[2]);
 		List<String> streets = Arrays.asList(address[0].getStreet(), address[1].getStreet());
 
 		assertThat(streets, containsInAnyOrder("Some Street", "Some Street 2"));
@@ -418,8 +418,8 @@ public class IogiParametersProviderTest {
 
 	@Test
 	public void shouldnotInstantiateObjectWhenThereAreNoParameters() throws Exception {
-		VRaptorInstantiator instantiator = new NullVRaptorInstantiator(converters, 
-				new VRaptorDependencyProvider(container), 
+		VRaptorInstantiator instantiator = new NullVRaptorInstantiator(converters,
+				new VRaptorDependencyProvider(container),
 				new VRaptorParameterNamesProvider(nameProvider), request);
 
 		instantiator.createInstantiator();
@@ -431,21 +431,22 @@ public class IogiParametersProviderTest {
 		assertThat(params[0], nullValue());
 	}
 
+	@Vetoed
 	static class NullVRaptorInstantiator extends VRaptorInstantiator {
-		
+
 		public NullVRaptorInstantiator(Converters converters,
 				VRaptorDependencyProvider provider,
 				VRaptorParameterNamesProvider nameProvider,
 				HttpServletRequest request) {
 			super(converters, provider, nameProvider, request);
 		}
-		
+
 		@Override
 		protected boolean useNullForMissingParameters() {
 			return true;
 		}
 	}
-	
+
 	@Test
 	public void returnsNullWhenInstantiatingAStringForWhichThereAreNoParameters() throws Exception {
 		thereAreNoParameters();
@@ -546,7 +547,7 @@ public class IogiParametersProviderTest {
 		assertThat(out[0], is(not((Object) result)));
 		assertThat(out[0], is((Object) "buggy"));
 	}
-	
+
 	@Test
 	public void isCapableOfClassesThatHaveConverters() throws Exception {
 		when(converters.existsFor(ABC.class)).thenReturn(true);
@@ -617,13 +618,13 @@ public class IogiParametersProviderTest {
 
 	static class Specific extends Generic<ABC> {
 	}
-	
+
 	static class GenericKeyValueResource<K, V> {
 		void put(K key, V value) { }
 	}
 
 	static class SpecificKeyValueResource extends GenericKeyValueResource<String, Long> {
-	
+
 	}
 
 	public static class Cat {
@@ -695,7 +696,7 @@ public class IogiParametersProviderTest {
 		private Long y;
 		private List<Person> person;
 		private Set<Address> addresses;
-		
+
 		public Set<Address> getAddresses() {
 			return addresses;
 		}
@@ -731,7 +732,7 @@ public class IogiParametersProviderTest {
 
 	public static class Person {
 		private String name;
-		
+
 		public String getName() {
 			return name;
 		}
@@ -739,7 +740,7 @@ public class IogiParametersProviderTest {
 		public void setName(String name) {
 			this.name = name;
 		}
-		
+
 	}
 
 	public static class Address {
@@ -752,7 +753,7 @@ public class IogiParametersProviderTest {
 		public void setStreet(String street) {
 			this.street = street;
 		}
-		
+
 	}
 
 	public static class WrongCat {

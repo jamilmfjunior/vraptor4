@@ -4,17 +4,19 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import org.slf4j.Logger;
 
+import com.google.common.base.Throwables;
+
 import br.com.caelum.vraptor.core.ReflectionProviderException;
 import br.com.caelum.vraptor.interceptor.ApplicationLogicException;
 import br.com.caelum.vraptor.validator.ValidationException;
-
-import com.google.common.base.Throwables;
+import jakarta.enterprise.context.RequestScoped;
 
 /**
  * Handles exceptions thrown by a controller method
  *
  * @author Chico Sokol
  */
+@RequestScoped
 public class ExecuteMethodExceptionHandler {
 	private final static Logger log = getLogger(ExecuteMethodExceptionHandler.class);
 

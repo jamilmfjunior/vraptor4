@@ -23,6 +23,16 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.slf4j.Logger;
+
+import br.com.caelum.vraptor.core.StaticContentHandler;
+import br.com.caelum.vraptor.events.RequestStarted;
+import br.com.caelum.vraptor.events.VRaptorInitialized;
+import br.com.caelum.vraptor.http.EncodingHandler;
+import br.com.caelum.vraptor.interceptor.ApplicationLogicException;
+import br.com.caelum.vraptor.ioc.RequestStartedFactory;
+import br.com.caelum.vraptor.ioc.cdi.CDIRequestFactories;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.interceptor.Interceptor.Priority;
@@ -38,16 +48,6 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-
-import br.com.caelum.vraptor.core.StaticContentHandler;
-import br.com.caelum.vraptor.events.RequestStarted;
-import br.com.caelum.vraptor.events.VRaptorInitialized;
-import br.com.caelum.vraptor.http.EncodingHandler;
-import br.com.caelum.vraptor.interceptor.ApplicationLogicException;
-import br.com.caelum.vraptor.ioc.RequestStartedFactory;
-import br.com.caelum.vraptor.ioc.cdi.CDIRequestFactories;
-
 /**
  * VRaptor entry point.<br>
  * Provider configuration is supported through init parameter.
@@ -56,6 +56,7 @@ import br.com.caelum.vraptor.ioc.cdi.CDIRequestFactories;
  * @author Fabio Kung
  */
 @WebFilter(filterName="vraptor", urlPatterns="/*", dispatcherTypes={DispatcherType.FORWARD, DispatcherType.REQUEST}, asyncSupported=true)
+@RequestScoped
 public class VRaptor implements Filter {
 
 	public static final String VERSION = "4.3.0-beta-4-SNAPSHOT";
@@ -104,12 +105,12 @@ public class VRaptor implements Filter {
 
 		final HttpServletRequest baseRequest = (HttpServletRequest) req;
 		final HttpServletResponse baseResponse = (HttpServletResponse) res;
-		
+
 		if (isWebsocketRequest(baseRequest)) {
 			chain.doFilter(req, res);
 			return;
 		}
-		
+
 		if (staticHandler.requestingStaticFile(baseRequest)) {
 			staticHandler.deferProcessingToContainer(chain, baseRequest, baseResponse);
 		} else {
@@ -143,7 +144,7 @@ public class VRaptor implements Filter {
 	}
 
 	private void warnIfBeansXmlIsNotFound() throws ServletException {
-		
+
 		URL webInfFile = getResource("/WEB-INF/beans.xml");
 		URL metaInfFile = getResource("/WEB-INF/classes/META-INF/beans.xml");
 
@@ -177,14 +178,14 @@ public class VRaptor implements Filter {
 			throw new ServletException("Dependencies were not set. Do you have a Weld/CDI listener setup in your web.xml?");
 		}
 	}
-	
+
 	/**
-	 * According to the Websocket spec (https://tools.ietf.org/html/rfc6455): The WebSocket Protocol 
+	 * According to the Websocket spec (https://tools.ietf.org/html/rfc6455): The WebSocket Protocol
 	 * 5. The request MUST contain an |Upgrade| header field whose value MUST include the "websocket" keyword.
 	 */
 	private boolean isWebsocketRequest(HttpServletRequest request) {
 		String upgradeHeader = request.getHeader("Upgrade");
 		return upgradeHeader != null && upgradeHeader.toLowerCase().contains("websocket");
 	}
-	
+
 }

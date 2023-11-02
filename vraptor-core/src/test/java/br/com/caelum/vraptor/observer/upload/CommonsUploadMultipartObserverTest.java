@@ -282,7 +282,7 @@ public class CommonsUploadMultipartObserverTest {
 		final List<FileItem> elements = new ArrayList<>();
 		elements.add(new MockFileItem("myfile", "foo.txt", "bar".getBytes()));
 
-		when(observer.createJakartaServletFileUpload(config)).thenReturn(servletFileUpload);
+		when(observer.createJakartaServletFileUpload(configSpy)).thenReturn(servletFileUpload);
 		when(servletFileUpload.parseRequest(request)).thenReturn(elements);
 
 		observer.upload(event, request, configSpy, validator);

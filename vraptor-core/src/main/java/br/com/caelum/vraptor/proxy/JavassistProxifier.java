@@ -18,19 +18,20 @@ package br.com.caelum.vraptor.proxy;
 import static javassist.util.proxy.ProxyFactory.isProxyClass;
 
 import java.lang.reflect.Method;
-
-import javassist.util.proxy.MethodFilter;
-import javassist.util.proxy.MethodHandler;
-import javassist.util.proxy.ProxyFactory;
-
-import jakarta.enterprise.context.ApplicationScoped;
+import java.util.Arrays;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import javassist.util.proxy.MethodFilter;
+import javassist.util.proxy.MethodHandler;
+import javassist.util.proxy.ProxyFactory;
+
 /**
  * Javassist implementation for {@link Proxifier}.
- * 
+ *
  * @author Otávio Scherer Garcia
  * @since 3.3.1
  */
@@ -42,17 +43,26 @@ public class JavassistProxifier implements Proxifier {
 	/**
 	 * Do not proxy these methods.
 	 */
-	private static final MethodFilter IGNORE_BRIDGE_AND_OBJECT_METHODS = new MethodFilter() {
+	private class IgnoreBridgeAndObjectMethodsFilter implements MethodFilter {
+		private Class<?> type;
+
+		public <T> IgnoreBridgeAndObjectMethodsFilter(Class<T> type) {
+			this.type = type;
+		}
+
 		@Override
 		public boolean isHandled(Method method) {
-			return !method.isBridge() && !method.getDeclaringClass().equals(Object.class);
+			boolean isBridge = !method.getDeclaringClass().equals(type) && Arrays.asList(type.getDeclaredMethods()).stream()
+					.anyMatch(m -> m.isBridge() && m.getName().equals(method.getName()) && Objects.deepEquals(m.getParameterTypes(), method.getParameterTypes()));
+
+			return !isBridge && !method.getDeclaringClass().equals(Object.class);
 		}
 	};
 
 	@Override
 	public <T> T proxify(Class<T> type, MethodInvocation<? super T> handler) {
 		final ProxyFactory factory = new ProxyFactory();
-		factory.setFilter(IGNORE_BRIDGE_AND_OBJECT_METHODS);
+		factory.setFilter(new IgnoreBridgeAndObjectMethodsFilter(type));
 		Class<?> rawType = extractRawType(type);
 
 		if (type.isInterface()) {

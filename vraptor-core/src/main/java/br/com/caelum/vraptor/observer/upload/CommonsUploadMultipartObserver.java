@@ -22,6 +22,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.Collection;
 import java.util.List;
 
@@ -154,6 +155,8 @@ public class CommonsUploadMultipartObserver {
 			try {
 				return item.getString(Charset.forName(encoding));
 			} catch (UnsupportedEncodingException e) {
+				logger.debug("Request has an invalid encoding. Ignoring it", e);
+			} catch (UnsupportedCharsetException e) {
 				logger.debug("Request has an invalid encoding. Ignoring it", e);
 			} catch (IOException e) {
 				logger.debug("Request has an invalid encoding. Ignoring it", e);

@@ -15,11 +15,12 @@
  */
 package br.com.caelum.cdi.component;
 
-import jakarta.inject.Inject;
-
 import br.com.caelum.vraptor.cache.CacheStore;
 import br.com.caelum.vraptor.cache.LRU;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 
+@RequestScoped
 public class UsingCacheComponent {
 
 	@Inject
